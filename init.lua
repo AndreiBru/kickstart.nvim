@@ -129,13 +129,15 @@ require('lazy').setup({
     },
   },
 
+  -- Themes
   {
-    -- Theme inspired by Atom
     'navarasu/onedark.nvim',
     priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
+  },
+
+  {
+    'rose-pine/neovim',
+    as = 'rose-pine',
   },
 
   {
@@ -145,7 +147,8 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        -- (rose-pine, onedark)
+        theme = 'rose-pine',
         component_separators = '|',
         section_separators = '',
       },
@@ -205,15 +208,53 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
+-- Configure themes
+require('onedark').setup({
+  style = 'dark',
+  transparent = true,
+})
+
+require('rose-pine').setup({
+	--- @usage 'auto'|'main'|'moon'|'dawn'
+	variant = 'auto',
+	--- @usage 'main'|'moon'|'dawn'
+	dark_variant = 'moon',
+	bold_vert_split = false,
+	dim_nc_background = false,
+	disable_background = true,
+	disable_float_background = true,
+	disable_italics = true,
+})
+
+-- Set colorscheme
+vim.cmd('colorscheme rose-pine');
+
+-- Set transparent background for gitsigns
+vim.cmd(':highlight GitSignsAdd guibg=NONE');
+vim.cmd(':highlight GitSignsChange guibg=NONE');
+vim.cmd(':highlight GitSignsDelete guibg=NONE');
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
+
+-- Set default tab width (vim-sleuth overrides though)
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
+
+-- Scroll page X lines before cursor reaches last visible line
+vim.o.scrolloff = 8
+
+-- Show relative line number
+vim.wo.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -248,6 +289,9 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
+
+-- Personal keymaps
+vim.keymap.set('n', '<leader><Space>', ':noh<CR>')
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -286,7 +330,7 @@ pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>b', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
@@ -306,10 +350,10 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'javascript' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = false,
+  auto_install = true,
 
   highlight = { enable = true },
   indent = { enable = true },
