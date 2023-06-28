@@ -144,43 +144,43 @@ require('lazy').setup({
     as = 'rose-pine',
   },
 
-  {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    -- !!! Overriding theme for transparent background
-    config = function()
-      local custom_rose_pine = require'lualine.themes.rose-pine'
+  -- {
+  --   -- Set lualine as statusline
+  --   'nvim-lualine/lualine.nvim',
+  --   -- See `:help lualine.txt`
+  --   -- !!! Overriding theme for transparent background
+  --   config = function()
+  --     local custom_rose_pine = require'lualine.themes.rose-pine'
+  --
+  --     custom_rose_pine.normal.c.bg = nil
+  --     custom_rose_pine.insert.c.bg = nil
+  --     custom_rose_pine.visual.c.bg = nil
+  --     custom_rose_pine.replace.c.bg = nil
+  --     custom_rose_pine.command.c.bg = nil
+  --     custom_rose_pine.inactive.c.bg = nil
+  --
+  --     require('lualine').setup{
+  --       options = {
+  --         icons_enabled = false,
+  --         -- available themes (rose-pine, onedark)
+  --         theme = custom_rose_pine,
+  --         component_separators = '|',
+  --         section_separators = '',
+  --       },
+  --     }
+  --   end
+  -- },
 
-      custom_rose_pine.normal.c.bg = nil
-      custom_rose_pine.insert.c.bg = nil
-      custom_rose_pine.visual.c.bg = nil
-      custom_rose_pine.replace.c.bg = nil
-      custom_rose_pine.command.c.bg = nil
-      custom_rose_pine.inactive.c.bg = nil
-
-      require('lualine').setup{
-        options = {
-          icons_enabled = false,
-          -- available themes (rose-pine, onedark)
-          theme = custom_rose_pine,
-          component_separators = '|',
-          section_separators = '',
-        },
-      }
-    end
-  },
-
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
-  },
+  -- {
+  --   -- Add indentation guides even on blank lines
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   -- Enable `lukas-reineke/indent-blankline.nvim`
+  --   -- See `:help indent_blankline.txt`
+  --   opts = {
+  --     char = '┊',
+  --     show_trailing_blankline_indent = false,
+  --   },
+  -- },
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },

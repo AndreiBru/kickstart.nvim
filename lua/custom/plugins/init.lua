@@ -36,34 +36,34 @@ return {
     end
   },
 
-  {
-    'romgrk/barbar.nvim',
-    dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-    },
-    init = function() vim.g.barbar_auto_setup = false end,
-    version = '^1.0.0', -- optional: only update when a new 1.x version is released
-    config = function()
-      require('barbar').setup({
-        auto_hide = true,
-        sidebar_filetypes = {
-          -- Use the default values: {event = 'BufWinLeave', text = nil}
-          NvimTree = true,
-          -- Or, specify the text used for the offset:
-          undotree = {text = 'undotree'},
-        },
-        icons = {
-          filetype = { enabled = true },
-        }
-      })
-
-      vim.keymap.set('n', '<C-.>', '<Cmd>BufferNext<CR>')
-      vim.keymap.set('n', '<C-,>', '<Cmd>BufferPrevious<CR>')
-      vim.keymap.set('n', '<leader>,', '<Cmd>BufferPin<CR>')
-      vim.keymap.set('n', '<leader>.', '<Cmd>BufferClose<CR>')
-    end
-  },
+  -- {
+  --   'romgrk/barbar.nvim',
+  --   dependencies = {
+  --     'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+  --     'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+  --   },
+  --   init = function() vim.g.barbar_auto_setup = false end,
+  --   version = '^1.0.0', -- optional: only update when a new 1.x version is released
+  --   config = function()
+  --     require('barbar').setup({
+  --       auto_hide = true,
+  --       sidebar_filetypes = {
+  --         -- Use the default values: {event = 'BufWinLeave', text = nil}
+  --         NvimTree = true,
+  --         -- Or, specify the text used for the offset:
+  --         undotree = {text = 'undotree'},
+  --       },
+  --       icons = {
+  --         filetype = { enabled = true },
+  --       }
+  --     })
+  --
+  --     vim.keymap.set('n', '<C-.>', '<Cmd>BufferNext<CR>')
+  --     vim.keymap.set('n', '<C-,>', '<Cmd>BufferPrevious<CR>')
+  --     vim.keymap.set('n', '<leader>,', '<Cmd>BufferPin<CR>')
+  --     vim.keymap.set('n', '<leader>.', '<Cmd>BufferClose<CR>')
+  --   end
+  -- },
 
   -- !!! I'll use barbar for now, seems better
   -- {
@@ -110,7 +110,7 @@ return {
 
       vim.keymap.set('n', '<C-9>', function() ui.nav_file(1) end)
       vim.keymap.set('n', '<C-0>', function() ui.nav_file(2) end)
-      vim.keymap.set('n', '<C-->', function() ui.nav_file(3) end)
+      vim.keymap.set('n', '<C-_>', function() ui.nav_file(3) end)
       vim.keymap.set('n', '<C-=>', function() ui.nav_file(4) end)
     end
   }
