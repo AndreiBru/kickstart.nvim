@@ -61,7 +61,7 @@ return {
       vim.keymap.set('n', '<C-.>', '<Cmd>BufferNext<CR>')
       vim.keymap.set('n', '<C-,>', '<Cmd>BufferPrevious<CR>')
       vim.keymap.set('n', '<leader>,', '<Cmd>BufferPin<CR>')
-      vim.keymap.set('n', '<leader>.', '<Cmd>BufferClose<CR>')
+      vim.keymap.set('n', '<leader>.', '<Cmd>BufferPickDelete<CR>')
     end
   },
 
