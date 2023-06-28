@@ -1,4 +1,5 @@
 --[[
+--
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
@@ -38,6 +39,9 @@ P.S. You can delete this when you're done too. It's your config now :)
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -144,15 +148,27 @@ require('lazy').setup({
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = false,
-        -- (rose-pine, onedark)
-        theme = 'rose-pine',
-        component_separators = '|',
-        section_separators = '',
-      },
-    },
+    -- !!! Overriding theme for transparent background
+    config = function()
+      local custom_rose_pine = require'lualine.themes.rose-pine'
+
+      custom_rose_pine.normal.c.bg = nil
+      custom_rose_pine.insert.c.bg = nil
+      custom_rose_pine.visual.c.bg = nil
+      custom_rose_pine.replace.c.bg = nil
+      custom_rose_pine.command.c.bg = nil
+      custom_rose_pine.inactive.c.bg = nil
+
+      require('lualine').setup{
+        options = {
+          icons_enabled = false,
+          -- available themes (rose-pine, onedark)
+          theme = custom_rose_pine,
+          component_separators = '|',
+          section_separators = '',
+        },
+      }
+    end
   },
 
   {
@@ -238,6 +254,10 @@ vim.cmd(':highlight GitSignsDelete guibg=NONE');
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
+-- Undo dir (from Primeagen, for undotree)
+vim.o.undodir = os.getenv('HOME') .. '/.vim/undodir'
+vim.o.undofile = true
+
 -- Set highlight on search
 vim.o.hlsearch = true
 
@@ -287,6 +307,9 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+
+-- Allow cursor to enter 'invalid' areas
+vim.o.virtualedit = 'all'
 
 -- [[ Basic Keymaps ]]
 
