@@ -110,7 +110,7 @@ return {
 
       vim.keymap.set('n', '<C-9>', function() ui.nav_file(1) end)
       vim.keymap.set('n', '<C-0>', function() ui.nav_file(2) end)
-      vim.keymap.set('n', '<C-->', function() ui.nav_file(3) end)
+      vim.keymap.set('n', '<C-_>', function() ui.nav_file(3) end)
       vim.keymap.set('n', '<C-=>', function() ui.nav_file(4) end)
     end
   }
