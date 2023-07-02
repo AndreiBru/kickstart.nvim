@@ -30,9 +30,6 @@ return {
     'nvim-tree/nvim-tree.lua',
     config = function()
       require("nvim-tree").setup()
-
-      vim.keymap.set("n", "<leader>n", vim.cmd.NvimTreeToggle)
-      vim.keymap.set("n", "<leader>m", vim.cmd.NvimTreeFindFileToggle)
     end
   },
 
@@ -58,10 +55,6 @@ return {
         }
       })
 
-      vim.keymap.set('n', '<C-.>', '<Cmd>BufferNext<CR>')
-      vim.keymap.set('n', '<C-,>', '<Cmd>BufferPrevious<CR>')
-      vim.keymap.set('n', '<leader>,', '<Cmd>BufferPin<CR>')
-      vim.keymap.set('n', '<leader>.', '<Cmd>BufferPickDelete<CR>')
     end
   },
 
@@ -102,16 +95,6 @@ return {
     'theprimeagen/harpoon',
     config = function()
       require('harpoon').setup({})
-      local mark = require('harpoon.mark')
-      local ui = require('harpoon.ui')
-
-      vim.keymap.set('n', '<C-a>', mark.add_file)
-      vim.keymap.set('n', '<C-h>', ui.toggle_quick_menu)
-
-      vim.keymap.set('n', '<C-9>', function() ui.nav_file(1) end)
-      vim.keymap.set('n', '<C-0>', function() ui.nav_file(2) end)
-      vim.keymap.set('n', '<C-_>', function() ui.nav_file(3) end)
-      vim.keymap.set('n', '<C-=>', function() ui.nav_file(4) end)
     end
   }
 }
