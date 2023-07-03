@@ -57,44 +57,42 @@ return {
 
     end
   },
-
-  -- !!! I'll use barbar for now, seems better
-  -- {
-  --   'akinsho/bufferline.nvim',
-  --   version = '*',
-  --   dependencies = 'nvim-tree/nvim-web-devicons',
-  --   config = function()
-  --     local bufferline = require('bufferline')
-  --     bufferline.setup({
-  --       options = {
-  --         buffer_close_icon = '',
-  --         modified_icon = '●',
-  --         close_icon = '',
-  --         left_trunc_marker = '',
-  --         right_trunc_marker = '',
-  --         separator_style = {'▎', '▎'},
-  --         show_buffer_icons = false,
-  --         offsets = {
-  --           {
-  --             filetype = "NvimTree",
-  --             text = "",
-  --             padding = 1,
-  --           }
-  --         },
-  --         -- hover = {
-  --         --   enabled = true,
-  --         --   delay = 200,
-  --         --   reveal = {'close'}
-  --         -- }
-  --       }
-  --     })
-  --   end
-  -- }
-
   {
     'theprimeagen/harpoon',
     config = function()
       require('harpoon').setup({})
     end
-  }
+  },
+
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = function()
+      local null_ls = require('null-ls')
+      local formatting = null_ls.builtins.formatting
+      -- local diagnostics = null_ls.builtins.diagnostics
+
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+      null_ls.setup({
+        debug = false,
+        sources = {
+          formatting.prettier
+        },
+        on_attach = function(client, bufnr)
+          if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+                -- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
+                vim.lsp.buf.format({ async = false })
+              end,
+            })
+          end
+        end,
+      })
+    end
+  },
 }
