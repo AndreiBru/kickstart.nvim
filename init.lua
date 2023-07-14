@@ -250,6 +250,10 @@ vim.cmd(':highlight GitSignsAdd guibg=NONE');
 vim.cmd(':highlight GitSignsChange guibg=NONE');
 vim.cmd(':highlight GitSignsDelete guibg=NONE');
 
+-- Set transparent background for barbar
+vim.cmd('hi BufferTabpageFill guibg=nil');
+
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -328,7 +332,7 @@ vim.keymap.set('n', '<leader>.', '<Cmd>BufferPickDelete<CR>')
 local mark = require('harpoon.mark')
 local ui = require('harpoon.ui')
 
-vim.keymap.set('n', '<C-a>', mark.add_file)
+vim.keymap.set('n', '<C-j>', mark.add_file)
 vim.keymap.set('n', '<C-h>', ui.toggle_quick_menu)
 
 vim.keymap.set('n', '<C-9>', function() ui.nav_file(1) end)
@@ -366,6 +370,19 @@ require('telescope').setup {
       },
     },
   },
+  pickers = {
+    buffers = {
+      -- show_all_buffers = true,
+      -- sort_lastused = true,
+      -- theme = "dropdown",
+      -- previewer = false,
+      mappings = {
+        i = {
+          ["<c-d>"] = "delete_buffer",
+        }
+      }
+    }
+  }
 }
 
 -- Enable telescope fzf native, if installed
