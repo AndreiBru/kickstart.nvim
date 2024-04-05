@@ -3,6 +3,15 @@
 --
 -- See the kickstart.nvim README for more information
 return {
+  {'github/copilot.vim',
+    config = function()
+      vim.keymap.set('i', '<C-J>', 'copilot#Accept("<CR>")', {
+        expr = true,
+        replace_keycodes = false
+      })
+      vim.g.copilot_no_tab_map = true
+    end
+  },
   {
     'mbbill/undotree',
     config = function()
@@ -55,12 +64,6 @@ return {
         }
       })
 
-    end
-  },
-  {
-    'theprimeagen/harpoon',
-    config = function()
-      require('harpoon').setup({})
     end
   },
 

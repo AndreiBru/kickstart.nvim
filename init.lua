@@ -45,6 +45,8 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.g.markdown_folding = 1
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -320,6 +322,7 @@ vim.o.virtualedit = 'all'
 
 -- !!! Personal keymaps
 vim.keymap.set('n', '<leader><Space>', ':noh<CR>')
+vim.keymap.set('n', '<leader>dd', vim.diagnostic.open_float);
 
 -- !!! Personal Plugin Keymaps
 vim.keymap.set("n", "<leader>n", vim.cmd.NvimTreeToggle)
@@ -330,16 +333,16 @@ vim.keymap.set('n', '<C-,>', '<Cmd>BufferPrevious<CR>')
 vim.keymap.set('n', '<leader>,', '<Cmd>BufferPin<CR>')
 vim.keymap.set('n', '<leader>.', '<Cmd>BufferPickDelete<CR>')
 
-local mark = require('harpoon.mark')
-local ui = require('harpoon.ui')
+-- local mark = require('harpoon.mark')
+-- local ui = require('harpoon.ui')
+--
+-- vim.keymap.set('n', '<C-j>', mark.add_file)
+-- vim.keymap.set('n', '<C-h>', ui.toggle_quick_menu)
 
-vim.keymap.set('n', '<C-j>', mark.add_file)
-vim.keymap.set('n', '<C-h>', ui.toggle_quick_menu)
-
-vim.keymap.set('n', '<C-9>', function() ui.nav_file(1) end)
-vim.keymap.set('n', '<C-0>', function() ui.nav_file(2) end)
-vim.keymap.set('n', '<C-_>', function() ui.nav_file(3) end)
-vim.keymap.set('n', '<C-=>', function() ui.nav_file(4) end)
+-- vim.keymap.set('n', '<C-9>', function() ui.nav_file(1) end)
+-- vim.keymap.set('n', '<C-0>', function() ui.nav_file(2) end)
+-- vim.keymap.set('n', '<C-_>', function() ui.nav_file(3) end)
+-- vim.keymap.set('n', '<C-=>', function() ui.nav_file(4) end)
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
