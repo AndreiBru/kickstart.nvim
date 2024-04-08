@@ -95,7 +95,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -227,6 +227,7 @@ vim.opt.rtp:prepend(lazypath)
 
 --  NOTE: !!!!!!!!!!!! My personal config stuff
 vim.o.termguicolors = true
+vim.g.markdown_folding = 1
 
 -- Nvim tree binds
 vim.keymap.set('n', '<leader>n', vim.cmd.NvimTreeToggle)

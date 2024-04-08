@@ -4,6 +4,12 @@
 -- See the kickstart.nvim README for more information
 return {
   {
+    'mbbill/undotree',
+    config = function()
+      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+    end,
+  },
+  {
     'rose-pine/neovim',
     as = 'rose-pine',
     config = function()
@@ -38,9 +44,6 @@ return {
       })
       vim.g.copilot_no_tab_map = true
     end,
-  },
-  {
-    'nvim-tree/nvim-web-devicons',
   },
   {
     'nvim-tree/nvim-tree.lua',
