@@ -125,6 +125,9 @@ vim.opt.breakindent = true
 -- Save undo history
 vim.opt.undofile = true
 
+-- Undo dir (from Primeagen, for undotree)
+vim.o.undodir = os.getenv 'HOME' .. '/.vim/undodir'
+
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -153,7 +156,7 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 
 -- Show which line your cursor is on
-vim.opt.cursorline = true
+vim.opt.cursorline = false
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
@@ -190,6 +193,14 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Navigate between quickfix list items
+vim.keymap.set('n', '[q', '<cmd>cprev<CR>zz', { desc = 'Go to previous item in quickfix list' })
+vim.keymap.set('n', ']q', '<cmd>cnext<CR>', { desc = 'Go to next item in quickfix list' })
+
+-- Navigate between quickfix list items
+vim.keymap.set('n', '[b', '<cmd>bprevious<CR>zz', { desc = 'Go to previous buffer' })
+vim.keymap.set('n', ']b', '<cmd>bnext<CR>zz', { desc = 'Go to next buffer' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -228,6 +239,9 @@ vim.opt.rtp:prepend(lazypath)
 --  NOTE: !!!!!!!!!!!! My personal config stuff
 vim.o.termguicolors = true
 vim.g.markdown_folding = 1
+
+-- Go in invalid spaces
+vim.o.virtualedit = 'all'
 
 -- Nvim tree binds
 vim.keymap.set('n', '<leader>n', vim.cmd.NvimTreeToggle)
@@ -374,7 +388,11 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -680,12 +698,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
       },
       'saadparwaiz1/cmp_luasnip',
@@ -802,7 +820,9 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      require('mini.surround').setup {
+        n_lines = 1000,
+      }
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -810,6 +830,10 @@ require('lazy').setup({
       local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
       statusline.setup { use_icons = vim.g.have_nerd_font }
+
+      vim.cmd ':highlight MiniStatuslineDevinfo guibg=NONE'
+      vim.cmd ':highlight MiniStatuslineFilename guibg=NONE'
+      vim.cmd ':highlight MiniStatuslineFileinfo guibg=NONE'
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
@@ -827,7 +851,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'javascript', 'markdown_inline' },
+      ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'javascript', 'markdown_inline', 'ruby', 'bash' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -897,3 +921,7 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+-- Search and CurSearch highlights
+vim.cmd ':highlight Search guibg=#413F54 guifg=NONE'
+vim.cmd ':highlight CurSearch guibg=#ee5d43 guifg=#e0def4'
